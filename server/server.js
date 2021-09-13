@@ -172,6 +172,6 @@ app.get("/*", (req, res) => {
 
 // Start Server
 
-app.listen({ port: PORT }, async () => {
+app.listen({ port: 3000 }, async () => {
   await sequelize.authenticate();
 });
