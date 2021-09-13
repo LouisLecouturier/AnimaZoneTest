@@ -164,6 +164,12 @@ app.get("api/search/query=:query&category=:category", async (req, res) =>
   listing.search(req, res)
 );
 
+app.use(express.static(path.join(__dirname, "build")));
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 // Start Server
 
 app.listen({ port: PORT }, async () => {
