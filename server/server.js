@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const { sequelize } = require("./models");
-const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 const { auth } = require("./middlewares/Auth");
@@ -14,12 +13,10 @@ require("dotenv").config();
 
 const app = express();
 
-var corsOptions = {
-  credentials: true,
-};
+const buildPath = path.join(__dirname, "..", "build");
+app.use(express.static(buildPath));
 
 // Middlewares
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -167,15 +164,8 @@ app.get("api/search/query=:query&category=:category", async (req, res) =>
   listing.search(req, res)
 );
 
-app.use(express.static(path.join(__dirname, "build")));
-
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
 // Start Server
 
 app.listen({ port: PORT }, async () => {
   await sequelize.authenticate();
-  console.log("DB Connected !");
 });
