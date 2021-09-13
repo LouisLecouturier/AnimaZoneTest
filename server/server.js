@@ -3,6 +3,7 @@ const path = require("path");
 const { sequelize } = require("./models");
 const cookieParser = require("cookie-parser");
 
+const cors = require("cors");
 const { auth } = require("./middlewares/Auth");
 
 const multer = require("multer");
@@ -16,7 +17,12 @@ const app = express();
 const buildPath = path.join(__dirname, "..", "build");
 app.use(express.static(buildPath));
 
+var corsOptions = {
+  credentials: true,
+};
+
 // Middlewares
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -172,6 +178,6 @@ app.get("/*", (req, res) => {
 
 // Start Server
 
-app.listen({ port: 3000 }, async () => {
+app.listen({ port: 8080 }, async () => {
   await sequelize.authenticate();
 });
