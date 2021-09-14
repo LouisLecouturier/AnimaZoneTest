@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "animazone",
-    "host": "127.0.0.1",
+    "username": "b2baef267fc187",
+    "password": "77cddec9",
+    "database": "heroku_2a75635abb69c80",
+    "host": "eu-cdbr-west-01.cleardb.com",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "b2baef267fc187",
+    "password": "77cddec9",
+    "database": "heroku_2a75635abb69c80",
+    "host": "eu-cdbr-west-01.cleardb.com",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "b2baef267fc187",
+    "password": "77cddec9",
+    "database": "heroku_2a75635abb69c80",
+    "host": "eu-cdbr-west-01.cleardb.com",
     "dialect": "mysql"
   }
 }
