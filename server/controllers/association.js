@@ -53,7 +53,7 @@ const register = async (req, res) => {
 
     let isAssociation = await Association.findOne({
       where: {
-        [Op.and]: [
+        [Op.or]: [
           { siret: assoSiretNumber },
           { association_number: assoNumber },
         ],
@@ -296,7 +296,10 @@ const updateAssociation = async (req, res) => {
   let asso_id = decoded.association_id;
   try {
     const association = await Association.update(
-      { ...data },
+      {
+        ...data,
+        association_number: data.assoNumber ? data.assoNumber : null,
+      },
       {
         where: { id: asso_id },
       }
