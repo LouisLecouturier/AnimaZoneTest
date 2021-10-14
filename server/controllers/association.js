@@ -194,24 +194,28 @@ const getData = async (req, res) => {
 
 const getPublicData = async (req, res) => {
   let id = req.params.id;
-  const accessToken = req.headers["x-access-token"].split(" ")[1];
-
+  console.log(id);
+  if (req.headers["x-access-token"]) {
+    let accessToken = req.headers["x-access-token"].split(" ")[1];
+  } else {
+    let accessToken = null;
+  }
   try {
-    if (!id) {
+    if (!id && accessToken) {
       const decoded = jwt.decode(accessToken, process.env.JWT_KEY);
 
-      if (!decoded) {
-        return res.status(401).json("Invalid token");
-      }
+      if (decoded.association_id) {
+        let associationInfo = await Association_info.findOne({
+          where: { association_id: id ? id : decoded.association_id },
+        });
+        if (!associationInfo) {
+          associationInfo = false;
+        }
 
-      let associationInfo = await Association_info.findOne({
-        where: { association_id: id ? id : decoded.association_id },
-      });
-      if (!associationInfo) {
-        associationInfo = false;
+        return res.status(200).json(associationInfo);
+      } else {
+        return res.status(400).json();
       }
-
-      return res.status(200).json(associationInfo);
     } else {
       let associationInfo = await Association_info.findOne({
         where: { association_id: id },
